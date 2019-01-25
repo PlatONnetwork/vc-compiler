@@ -1,3 +1,3 @@
 [submodule "libcsnark"]
 	path = libcsnark
-	url = git@192.168.9.66:PlatON/libcsnark.git
+	url = https://github.com/PlatONnetwork/libcsnark.git
