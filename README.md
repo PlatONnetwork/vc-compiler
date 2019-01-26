@@ -1,12 +1,12 @@
 # vlang compiler manual
 --------
 - [Verifiable Computation Contract Guide] (#Verifiable Computation Contract Guide)
-    - [Brief Description] (#Brief Description)
-    - [Compile] (#Compile)
-    - [Code Constraint] (#Code Constraint)
-    - [Usage] (#Usage)
-    - [Contract Compilation Options] (#Contract Compile Options)
-    - [Example] (#Example)
+    - [Brief Description] (#brief-description)
+    - [Compiling] (#compiling)
+    - [Encoding Constraints] (#encoding-constraints)
+    - [Usage] (#usage)
+    - [Additional Compilation Options] (#additional-compilation-options)
+    - [Example] (#example)
 
 ------------------
 
@@ -17,51 +17,52 @@ The vlang compiler is based on the llvm, clang compiler, and libsnark password l
 * Installation dependencies
 
 ```bash
-    sudo apt-get install llvm-6.0-dev llvm-6.0 libclang-6.0-dev
-    sudo apt-get install libgmpxx4ldbl libgmp-dev libprocps4-dev
+    sudo apt-get install pkg-config libboost-all-dev
+    sudo apt-get install llvm-6.0-dev llvm-6.0 libclang-6.0-dev
+    sudo apt-get install libgmpxx4ldbl libgmp-dev libprocps4-dev libssl-dev
 ```
 * Download submodule
 
 ```bash
-    git submodule update --init --recursive
+    git submodule update --init --recursive
 ```
 * Compile vlang
 
 ```bash
-    mkdir build
-    cd build
-    cmake ..
-    make
+    mkdir build
+    cd build
+    cmake ..
+    make
 ```
 
-## Encoding constraints
+## Encoding Constraints
 ```comment
-    The name of the main function must be vc_main
-    vc_main function prototype can not appear pointer / reference type
-    The step number of loop/recursion must be determined at compile time
-    Array addressing index must be constant
-    Cannot use IO operations
-    Cannot use dynamic memory allocation
-    Cannot use floating point type
+    The name of the main function must be vc_main
+    vc_main function prototype can not appear pointer / reference type
+    The step number of loop/recursion must be determined at compile time
+    Array addressing index must be constant
+    Cannot use IO operations
+    Cannot use dynamic memory allocation
+    Cannot use floating point type
 ```
 
 ## Usage
-```bash
-    vlang [clang args] [options] <inputs>
-    clang args: options supported by clang/gcc
-    options: additional options for vlang
-    inputs: input file (you can enter multiple files, will be linked)
+```text
+    vlang [clang args] [options] <inputs>
+    clang args: options supported by clang/gcc
+    options: additional options for vlang
+    inputs: input file (you can enter multiple files, will be linked)
 ```
 
 ## Additional Compilation Options
 ```bash
-    --help print option
-    -args=<arg> Setting debug parameters
-    -ir <file> llvm IR output to <file> (not output by default)
-    -o <file> The contract file is output to <file> (default output to vcc.cpp)
+    --help print option
+    -args=<arg> Setting debug parameters
+    -ir <file> llvm IR output to <file> (not output by default)
+    -o <file> The contract file is output to <file> (default output to vcc.cpp)
 ```
 
-## Examples
+## Example
 Write a program below, give the integer x, return the 5th power of x
 
 ```cpp
