@@ -1,12 +1,13 @@
 # vlang compiler manual
+
 --------
 - [Verifiable Computation Contract Guide] (#Verifiable Computation Contract Guide)
-    - [Brief Description] (#brief-description)
-    - [Compiling] (#compiling)
-    - [Encoding Constraints] (#encoding-constraints)
-    - [Usage] (#usage)
-    - [Additional Compilation Options] (#additional-compilation-options)
-    - [Example] (#example)
+    - [Brief Description](#brief-description)
+    - [Compiling](#compiling)
+    - [Encoding Constraints](#encoding-constraints)
+    - [Usage](#usage)
+    - [Additional Compilation Options](#additional-compilation-options)
+    - [Example](#example)
 
 ------------------
 
