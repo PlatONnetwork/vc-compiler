@@ -22,19 +22,37 @@ The vlang compiler is based on the llvm, clang compiler, and libsnark password l
     sudo apt-get install llvm-6.0-dev llvm-6.0 libclang-6.0-dev
     sudo apt-get install libgmpxx4ldbl libgmp-dev libprocps4-dev libssl-dev
 ```
+
+If the installation is not successful, please try:
+
+```bash
+    sudo apt-get upgrate
+```
+
 * Download submodule
 
 ```bash
     git submodule update --init --recursive
+```
+* Download llvm
+
+Take a directory-based example:/opt
+
+```bash
+    wget http://releases.llvm.org/6.0.1/clang+llvm-6.0.1-x86_64-linux-gnu-ubuntu-16.04.tar.xz.sig
+	xz -d clang+llvm-6.0.1-x86_64-linux-gnu-ubuntu-16.04.tar.xz.sig
+	tar zxvf clang+llvm-6.0.1-x86_64-linux-gnu-ubuntu-16.04.tar
 ```
 * Compile vlang
 
 ```bash
     mkdir build
     cd build
-    cmake ..
+    cmake .. -DLLVM_CONFIG=/opt/clang+llvm-6.0.1-x86_64-linux-gnu-ubuntu-16.04/bin/llvm-config
     make
 ```
+
+Compiled successfully, you can find *vlang in the vlang directory.
 
 ## Encoding Constraints
 ```comment
