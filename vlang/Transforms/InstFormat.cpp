@@ -54,6 +54,26 @@ ICmpInst* ReplaceICmpInst(ICmpInst* ICmp){
   }
 }
 
+void FillReturnValue(BasicBlock &BB){
+  ReturnInst* RetInst = cast<ReturnInst>(BB.getTerminator());
+  Value* RetValue = RetInst->getReturnValue();
+  Function* F = BB.getParent();
+
+  bool RetArg = false;
+  for(Argument &A : F->args()){
+    if(&A==RetValue) RetArg = true;
+  }
+
+  if(RetArg){
+    BinaryOperator* Add = BinaryOperator::CreateAdd(RetValue, ConstantInt::getNullValue(RetValue->getType()));
+    Add->insertBefore(RetInst);
+    ReturnInst* newRetInst = ReturnInst::Create(BB.getContext(), Add, RetInst);
+    
+    RetInst->replaceAllUsesWith(newRetInst);
+    RetInst->eraseFromParent();
+  }
+}
+
 bool InstFormatPass::runOnBasicBlock(BasicBlock &BB) {
 
   vector<pair<Instruction*, Instruction*>> InstPairs;
@@ -79,6 +99,8 @@ bool InstFormatPass::runOnBasicBlock(BasicBlock &BB) {
     Inst->replaceAllUsesWith(Alter);
     Inst->eraseFromParent();
   } 
+
+  FillReturnValue(BB);
   
   InstFormatCounter += InstPairs.size();
   return true;
