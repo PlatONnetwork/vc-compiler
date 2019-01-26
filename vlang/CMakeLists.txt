@@ -2,14 +2,18 @@ cmake_minimum_required(VERSION 2.8)
 project(vlang)
 
 if(NOT DEFINED LLVM_CONFIG)
-  if(EXISTS /usr/local/bin/llvm-config-6.0)
-    set(LLVM_CONFIG llvm-config-6.0)
-  elseif(EXISTS /usr/local/bin/llvm-config)
-    set(LLVM_CONFIG llvm-config)
-  else()
+  find_program(LLVM_CONFIG NAMES llvm-config-6.0)
+
+  if(NOT LLVM_CONFIG)
+    find_program(LLVM_CONFIG NAMES llvm-config)
+  endif()
+
+  if(NOT LLVM_CONFIG)
     message(FATAL_ERROR "Can not find llvm-config, Please specify by -DLLVM_CONFIG=")
   endif()
+
 endif()
+
 
 execute_process(COMMAND ${LLVM_CONFIG} --includedir
   OUTPUT_VARIABLE LLVM_INCLUDEDIR
